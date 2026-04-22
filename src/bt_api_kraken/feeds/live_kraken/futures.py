@@ -2,10 +2,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataFutures
-from bt_api_kraken.feeds.live_kraken.request_base import KrakenRequestData
 from bt_api_base.functions.utils import update_extra_data
 from bt_api_base.logging_factory import get_logger
+
+from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataFutures
+from bt_api_kraken.feeds.live_kraken.request_base import KrakenRequestData
 
 
 class KrakenRequestDataFutures(KrakenRequestData):

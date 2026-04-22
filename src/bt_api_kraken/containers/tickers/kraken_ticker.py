@@ -145,7 +145,7 @@ class KrakenRequestTickerData(TickerData):
             "asset_type": self.asset_type,
         }
 
-    def init_data(self) -> "KrakenRequestTickerData":
+    def init_data(self) -> KrakenRequestTickerData:
         return self
 
     def get_all_data(self) -> dict[str, Any]:

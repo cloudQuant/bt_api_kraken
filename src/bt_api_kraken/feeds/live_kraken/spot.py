@@ -2,14 +2,15 @@ from __future__ import annotations
 
 from typing import Any
 
+from bt_api_base.functions.utils import update_extra_data
+from bt_api_base.logging_factory import get_logger
+
 from bt_api_kraken.containers.balances.kraken_balance import KrakenSpotWssBalanceData
-from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataSpot
 from bt_api_kraken.containers.orderbooks.kraken_orderbook import KrakenRequestOrderBookData
 from bt_api_kraken.containers.orders.kraken_order import KrakenRequestOrderData
 from bt_api_kraken.containers.tickers.kraken_ticker import KrakenRequestTickerData
+from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataSpot
 from bt_api_kraken.feeds.live_kraken.request_base import KrakenRequestData
-from bt_api_base.functions.utils import update_extra_data
-from bt_api_base.logging_factory import get_logger
 
 
 class KrakenRequestDataSpot(KrakenRequestData):

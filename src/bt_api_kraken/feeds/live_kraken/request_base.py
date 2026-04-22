@@ -8,12 +8,12 @@ from typing import Any
 from urllib.parse import urlencode
 
 import requests as req_lib
-
-from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataSpot
 from bt_api_base.containers.requestdatas.request_data import RequestData
 from bt_api_base.feeds.capability import Capability
 from bt_api_base.feeds.feed import Feed
 from bt_api_base.logging_factory import get_logger
+
+from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataSpot
 
 
 class KrakenRequestData(Feed):

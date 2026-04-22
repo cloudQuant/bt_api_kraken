@@ -3,6 +3,8 @@ from __future__ import annotations
 from typing import Any
 
 from bt_api_base.balance_utils import nested_balance_handler as _kraken_balance_handler
+from bt_api_base.registry import ExchangeRegistry
+
 from bt_api_kraken.exchange_data.kraken_exchange_data import (
     KrakenExchangeDataFutures,
     KrakenExchangeDataSpot,
@@ -11,7 +13,6 @@ from bt_api_kraken.feeds.live_kraken import (
     KrakenRequestDataFutures,
     KrakenRequestDataSpot,
 )
-from bt_api_base.registry import ExchangeRegistry
 
 
 def _kraken_subscribe_handler(
