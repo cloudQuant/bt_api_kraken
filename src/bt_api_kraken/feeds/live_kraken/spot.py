@@ -218,11 +218,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
                 for currency, amount in result.items():
                     try:
                         if float(amount) > 0:
-                            balances.append(
-                                KrakenSpotWssBalanceData(
-                                    {currency: amount}, extra_data["asset_type"]
-                                )
-                            )
+                            balances.append(KrakenSpotWssBalanceData({currency: amount}, extra_data["asset_type"]))
                     except (ValueError, TypeError):
                         pass
                 return balances, True
@@ -309,11 +305,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
                             True,
                         )
                     ], True
-                return [
-                    KrakenRequestOrderData(
-                        result, extra_data["symbol_name"], extra_data["asset_type"], True
-                    )
-                ], True
+                return [KrakenRequestOrderData(result, extra_data["symbol_name"], extra_data["asset_type"], True)], True
         return [], False
 
     def make_order(
@@ -326,9 +318,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         extra_data=None,
         **kwargs,
     ):
-        path, body, extra_data = self._make_order(
-            symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
-        )
+        path, body, extra_data = self._make_order(symbol, vol, price, order_type, client_order_id, extra_data, **kwargs)
         return self.request(path, params={}, body=body, extra_data=extra_data)
 
     def async_make_order(
@@ -341,9 +331,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         extra_data=None,
         **kwargs,
     ):
-        path, body, extra_data = self._make_order(
-            symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
-        )
+        path, body, extra_data = self._make_order(symbol, vol, price, order_type, client_order_id, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params={}, body=body, extra_data=extra_data),
             callback=self.async_callback,

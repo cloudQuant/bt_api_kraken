@@ -331,9 +331,7 @@ class KrakenRequestBalanceData(BalanceData):
 
     def _update_totals(self):
         self.total_value_usd = sum(info["usd_value"] or 0 for info in self.balances.values())
-        self.total_crypto_balance = sum(
-            info["crypto_amount"] or 0 for info in self.balances.values()
-        )
+        self.total_crypto_balance = sum(info["crypto_amount"] or 0 for info in self.balances.values())
 
     def __str__(self) -> str:
         return f"KrakenBalance({self.total_value_usd:.2f} USD, {len(self.balances)} currencies)"

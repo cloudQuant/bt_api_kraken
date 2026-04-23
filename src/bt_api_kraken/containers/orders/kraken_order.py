@@ -306,10 +306,7 @@ class KrakenRequestOrderData(OrderData):
         self.remaining_quantity = 0
 
     def __str__(self) -> str:
-        return (
-            f"KrakenOrder({self.order_id}: {self.side} {self.quantity} {self.symbol} "
-            f"@ {self.price} [{self.status}])"
-        )
+        return f"KrakenOrder({self.order_id}: {self.side} {self.quantity} {self.symbol} @ {self.price} [{self.status}])"
 
     def __repr__(self) -> str:
         return (
@@ -321,9 +318,7 @@ class KrakenRequestOrderData(OrderData):
 
 
 class KrakenSpotWssOrderData(OrderData):
-    def __init__(
-        self, data: dict[str, Any], symbol: str, asset_type: str, has_been_json_encoded=False
-    ):
+    def __init__(self, data: dict[str, Any], symbol: str, asset_type: str, has_been_json_encoded=False):
         super().__init__(data, has_been_json_encoded)
         self.symbol = symbol
         self.asset_type = asset_type

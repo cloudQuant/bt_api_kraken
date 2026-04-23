@@ -175,9 +175,7 @@ class KrakenRequestDataFutures(KrakenRequestData):
         extra_data=None,
         **kwargs,
     ):
-        path, body, extra_data = self._make_order(
-            symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
-        )
+        path, body, extra_data = self._make_order(symbol, vol, price, order_type, client_order_id, extra_data, **kwargs)
         return self.request(path, params={}, body=body, extra_data=extra_data)
 
     def _cancel_order(self, order_id, extra_data=None, **kwargs):

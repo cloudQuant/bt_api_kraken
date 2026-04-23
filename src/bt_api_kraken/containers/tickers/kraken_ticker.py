@@ -8,9 +8,7 @@ from bt_api_base.logging_factory import get_logger
 
 
 class KrakenRequestTickerData(TickerData):
-    def __init__(
-        self, data: dict[str, Any], symbol: str, asset_type: str, has_been_json_encoded=False
-    ) -> None:
+    def __init__(self, data: dict[str, Any], symbol: str, asset_type: str, has_been_json_encoded=False) -> None:
         super().__init__(data, has_been_json_encoded)
         self.symbol = symbol
         self.asset_type = asset_type
@@ -61,9 +59,7 @@ class KrakenRequestTickerData(TickerData):
             self.bid_price = float(bid_data[0]) if bid_data[0] else None
             self.bid_quantity = float(bid_data[1]) if len(bid_data) > 1 and bid_data[1] else None
             self.last_price = float(last_data[0]) if last_data[0] else None
-            self.last_quantity = (
-                float(last_data[1]) if len(last_data) > 1 and last_data[1] else None
-            )
+            self.last_quantity = float(last_data[1]) if len(last_data) > 1 and last_data[1] else None
 
             volume_data = ticker.get("v", [None, None])
             self.volume_1d = float(volume_data[0]) if volume_data[0] else None
@@ -89,18 +85,14 @@ class KrakenRequestTickerData(TickerData):
 
             if self.ask_price and self.bid_price:
                 self.spread = self.ask_price - self.bid_price
-                self.spread_percentage = (
-                    (self.spread / self.bid_price) * 100 if self.bid_price else None
-                )
+                self.spread_percentage = (self.spread / self.bid_price) * 100 if self.bid_price else None
             else:
                 self.spread = None
                 self.spread_percentage = None
 
             if self.last_price is not None and self.open_price is not None:
                 self.price_change = self.last_price - self.open_price
-                self.price_change_percentage = (
-                    (self.last_price - self.open_price) / self.open_price
-                ) * 100
+                self.price_change_percentage = ((self.last_price - self.open_price) / self.open_price) * 100
             else:
                 self.price_change = None
                 self.price_change_percentage = None

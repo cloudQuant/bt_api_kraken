@@ -15,9 +15,7 @@ from bt_api_kraken.feeds.live_kraken import (
 )
 
 
-def _kraken_subscribe_handler(
-    data_queue: Any, exchange_params: Any, topics: Any, bt_api: Any
-) -> None:
+def _kraken_subscribe_handler(data_queue: Any, exchange_params: Any, topics: Any, bt_api: Any) -> None:
     pass
 
 

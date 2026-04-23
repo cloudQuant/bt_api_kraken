@@ -8,9 +8,7 @@ from bt_api_kraken import __version__
 from bt_api_kraken.registry_registration import register_kraken
 
 
-def register_plugin(
-    registry: type[ExchangeRegistry], runtime_factory: type[GatewayRuntimeRegistrar]
-) -> PluginInfo:
+def register_plugin(registry: type[ExchangeRegistry], runtime_factory: type[GatewayRuntimeRegistrar]) -> PluginInfo:
     register_kraken(registry)
 
     return PluginInfo(

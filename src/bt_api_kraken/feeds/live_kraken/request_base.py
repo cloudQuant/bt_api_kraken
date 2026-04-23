@@ -37,9 +37,7 @@ class KrakenRequestData(Feed):
     def __init__(self, data_queue: Any = None, **kwargs: Any) -> None:
         super().__init__(data_queue, **kwargs)
         self.public_key = kwargs.get("public_key") or kwargs.get("api_key")
-        self.private_key = (
-            kwargs.get("private_key") or kwargs.get("secret_key") or kwargs.get("api_secret")
-        )
+        self.private_key = kwargs.get("private_key") or kwargs.get("secret_key") or kwargs.get("api_secret")
         self.asset_type = kwargs.get("asset_type", "SPOT")
         self.exchange_name = kwargs.get("exchange_name", "KRAKEN")
         self.logger_name = kwargs.get("logger_name", "kraken_feed.log")
@@ -110,9 +108,7 @@ class KrakenRequestData(Feed):
                 self.request_logger.info(f"{method} {url}")
                 if params:
                     url = f"{url}?{urlencode(params)}"
-                response_data = self.http_request(
-                    method=method, url=url, headers={}, timeout=timeout
-                )
+                response_data = self.http_request(method=method, url=url, headers={}, timeout=timeout)
         except Exception as e:
             self.request_logger.error(f"Request error: {e}")
 
@@ -148,9 +144,7 @@ class KrakenRequestData(Feed):
             else:
                 if params:
                     url = f"{url}?{urlencode(params)}"
-                response_data = await self.async_http_request(
-                    method=method, url=url, headers={}, timeout=timeout
-                )
+                response_data = await self.async_http_request(method=method, url=url, headers={}, timeout=timeout)
         except Exception as e:
             self.async_logger.error(f"Async request error: {e}")
 

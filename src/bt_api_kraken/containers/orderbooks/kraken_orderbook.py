@@ -8,9 +8,7 @@ from bt_api_base.logging_factory import get_logger
 
 
 class KrakenRequestOrderBookData(OrderBookData):
-    def __init__(
-        self, data: dict[str, Any], symbol: str, asset_type: str, has_been_json_encoded=False
-    ):
+    def __init__(self, data: dict[str, Any], symbol: str, asset_type: str, has_been_json_encoded=False):
         super().__init__(data, has_been_json_encoded)
         self.symbol = symbol
         self.asset_type = asset_type
@@ -194,9 +192,7 @@ class KrakenRequestOrderBookData(OrderBookData):
             return False
         return all(level["quantity"] >= 0 for level in self.bids + self.asks)
 
-    def update_from_delta(
-        self, delta_bids: list[dict], delta_asks: list[dict], timestamp: float | None = None
-    ):
+    def update_from_delta(self, delta_bids: list[dict], delta_asks: list[dict], timestamp: float | None = None):
         if timestamp is None:
             timestamp = time.time()
 
@@ -236,9 +232,7 @@ class KrakenRequestOrderBookData(OrderBookData):
         self.asks.sort(key=lambda x: x["price"])
         self._calculate_stats()
 
-    def get_liquidation_price(
-        self, side: str, position_size: float, leverage: float = 1.0
-    ) -> float | None:
+    def get_liquidation_price(self, side: str, position_size: float, leverage: float = 1.0) -> float | None:
         if side == "long":
             if not self.bids:
                 return None
