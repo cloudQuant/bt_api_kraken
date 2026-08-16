@@ -1,2 +1,0 @@
-[bt_api.plugins]
-kraken = bt_api_kraken.plugin:register_plugin
