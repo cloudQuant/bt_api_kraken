@@ -1,4 +1,5 @@
 """Module-level docstring."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -11,6 +12,7 @@ logger = get_logger("kraken_exchange_data")
 
 class KrakenExchangeData(ExchangeData):
     """Class KrakenExchangeData"""
+
     def __init__(self) -> None:
         """__init__ method"""
         super().__init__()
@@ -64,6 +66,7 @@ class KrakenExchangeData(ExchangeData):
 
 class KrakenExchangeDataSpot(KrakenExchangeData):
     """Class KrakenExchangeDataSpot"""
+
     def __init__(self) -> None:
         """__init__ method"""
         super().__init__()
@@ -95,6 +98,7 @@ class KrakenExchangeDataSpot(KrakenExchangeData):
 
 class KrakenExchangeDataFutures(KrakenExchangeData):
     """Class KrakenExchangeDataFutures"""
+
     def __init__(self) -> None:
         """__init__ method"""
         super().__init__()

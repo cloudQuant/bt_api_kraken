@@ -1,20 +1,23 @@
 """Module-level docstring."""
+
 from __future__ import annotations
 
 from typing import Any
 
+from bt_api_base.functions.utils import update_extra_data
+from bt_api_base.logging_factory import get_logger
+
 from bt_api_kraken.containers.balances.kraken_balance import KrakenSpotWssBalanceData
-from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataSpot
 from bt_api_kraken.containers.orderbooks.kraken_orderbook import KrakenRequestOrderBookData
 from bt_api_kraken.containers.orders.kraken_order import KrakenRequestOrderData
 from bt_api_kraken.containers.tickers.kraken_ticker import KrakenRequestTickerData
+from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataSpot
 from bt_api_kraken.feeds.live_kraken.request_base import KrakenRequestData
-from bt_api_base.functions.utils import update_extra_data
-from bt_api_base.logging_factory import get_logger
 
 
 class KrakenRequestDataSpot(KrakenRequestData):
     """Class KrakenRequestDataSpot"""
+
     def __init__(self, data_queue: Any = None, **kwargs: Any) -> None:
         """__init__ method"""
         kwargs.setdefault("asset_type", "SPOT")
@@ -231,11 +234,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
                 for currency, amount in result.items():
                     try:
                         if float(amount) > 0:
-                            balances.append(
-                                KrakenSpotWssBalanceData(
-                                    {currency: amount}, extra_data["asset_type"]
-                                )
-                            )
+                            balances.append(KrakenSpotWssBalanceData({currency: amount}, extra_data["asset_type"]))
                     except (ValueError, TypeError):
                         pass
                 return balances, True
@@ -326,11 +325,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
                             True,
                         )
                     ], True
-                return [
-                    KrakenRequestOrderData(
-                        result, extra_data["symbol_name"], extra_data["asset_type"], True
-                    )
-                ], True
+                return [KrakenRequestOrderData(result, extra_data["symbol_name"], extra_data["asset_type"], True)], True
         return [], False
 
     def make_order(
@@ -344,9 +339,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         **kwargs,
     ):
         """make_order method"""
-        path, body, extra_data = self._make_order(
-            symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
-        )
+        path, body, extra_data = self._make_order(symbol, vol, price, order_type, client_order_id, extra_data, **kwargs)
         return self.request(path, params={}, body=body, extra_data=extra_data)
 
     def async_make_order(
@@ -360,9 +353,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         **kwargs,
     ):
         """async_make_order method"""
-        path, body, extra_data = self._make_order(
-            symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
-        )
+        path, body, extra_data = self._make_order(symbol, vol, price, order_type, client_order_id, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params={}, body=body, extra_data=extra_data),
             callback=self.async_callback,
@@ -499,9 +490,11 @@ class KrakenRequestDataSpot(KrakenRequestData):
 
 class KrakenMarketWssDataSpot:
     """Class KrakenMarketWssDataSpot"""
+
     pass
 
 
 class KrakenAccountWssDataSpot:
     """Class KrakenAccountWssDataSpot"""
+
     pass

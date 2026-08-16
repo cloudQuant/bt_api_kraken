@@ -11,9 +11,19 @@ pip install bt_api_kraken
 ```
 
 ```python
-from bt_api_kraken import KrakenApi
-feed = KrakenApi(api_key="your_key", secret="your_secret")
-ticker = feed.get_ticker("BTCUSDT")
+from bt_api_py import BtApi
+
+api = BtApi(
+    exchange_kwargs={
+        "KRAKEN___SPOT": {
+            "api_key": "your_key",
+            "secret": "your_secret",
+        }
+    }
+)
+
+ticker = api.get_tick("KRAKEN___SPOT", "BTCUSDT")
+print(ticker)
 ```
 
 ## 中文
@@ -27,9 +37,19 @@ pip install bt_api_kraken
 ```
 
 ```python
-from bt_api_kraken import KrakenApi
-feed = KrakenApi(api_key="your_key", secret="your_secret")
-ticker = feed.get_ticker("BTCUSDT")
+from bt_api_py import BtApi
+
+api = BtApi(
+    exchange_kwargs={
+        "KRAKEN___SPOT": {
+            "api_key": "your_key",
+            "secret": "your_secret",
+        }
+    }
+)
+
+ticker = api.get_tick("KRAKEN___SPOT", "BTCUSDT")
+print(ticker)
 ```
 
 ## API Reference

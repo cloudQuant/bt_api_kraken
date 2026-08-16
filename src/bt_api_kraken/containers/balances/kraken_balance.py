@@ -1,4 +1,5 @@
 """Module documentation"""
+
 from __future__ import annotations
 
 import time
@@ -160,6 +161,7 @@ _DEFAULT_CURRENCY_INFO = {
 
 class KrakenRequestBalanceData(BalanceData):
     """Class KrakenRequestBalanceData"""
+
     def __init__(self, data: dict[str, Any], asset_type: str, has_been_json_encoded=False):
         """__init__ method"""
         super().__init__(data, has_been_json_encoded)
@@ -342,9 +344,7 @@ class KrakenRequestBalanceData(BalanceData):
 
     def _update_totals(self):
         self.total_value_usd = sum(info["usd_value"] or 0 for info in self.balances.values())
-        self.total_crypto_balance = sum(
-            info["crypto_amount"] or 0 for info in self.balances.values()
-        )
+        self.total_crypto_balance = sum(info["crypto_amount"] or 0 for info in self.balances.values())
 
     def __str__(self) -> str:
         return f"KrakenBalance({self.total_value_usd:.2f} USD, {len(self.balances)} currencies)"
@@ -359,6 +359,7 @@ class KrakenRequestBalanceData(BalanceData):
 
 class KrakenSpotWssBalanceData(BalanceData):
     """Class KrakenSpotWssBalanceData"""
+
     def __init__(self, data: dict[str, Any], asset_type: str, has_been_json_encoded=False):
         """__init__ method"""
         super().__init__(data, has_been_json_encoded)

@@ -1,16 +1,19 @@
 """Module-level docstring."""
+
 from __future__ import annotations
 
 from typing import Any
 
-from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataFutures
-from bt_api_kraken.feeds.live_kraken.request_base import KrakenRequestData
 from bt_api_base.functions.utils import update_extra_data
 from bt_api_base.logging_factory import get_logger
+
+from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataFutures
+from bt_api_kraken.feeds.live_kraken.request_base import KrakenRequestData
 
 
 class KrakenRequestDataFutures(KrakenRequestData):
     """Class KrakenRequestDataFutures"""
+
     def __init__(self, data_queue: Any = None, **kwargs: Any) -> None:
         """__init__ method"""
         kwargs.setdefault("asset_type", "FUTURES")
@@ -187,9 +190,7 @@ class KrakenRequestDataFutures(KrakenRequestData):
         **kwargs,
     ):
         """make_order method"""
-        path, body, extra_data = self._make_order(
-            symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
-        )
+        path, body, extra_data = self._make_order(symbol, vol, price, order_type, client_order_id, extra_data, **kwargs)
         return self.request(path, params={}, body=body, extra_data=extra_data)
 
     def _cancel_order(self, order_id, extra_data=None, **kwargs):
@@ -215,9 +216,11 @@ class KrakenRequestDataFutures(KrakenRequestData):
 
 class KrakenMarketWssDataFutures:
     """Class KrakenMarketWssDataFutures"""
+
     pass
 
 
 class KrakenAccountWssDataFutures:
     """Class KrakenAccountWssDataFutures"""
+
     pass

@@ -1,4 +1,5 @@
 """Module documentation"""
+
 from __future__ import annotations
 
 import base64
@@ -9,16 +10,17 @@ from typing import Any
 from urllib.parse import urlencode
 
 import requests as req_lib
-
-from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataSpot
 from bt_api_base.containers.requestdatas.request_data import RequestData
 from bt_api_base.feeds.capability import Capability
 from bt_api_base.feeds.feed import Feed
 from bt_api_base.logging_factory import get_logger
 
+from bt_api_kraken.exchange_data.kraken_exchange_data import KrakenExchangeDataSpot
+
 
 class KrakenRequestData(Feed):
     """Class KrakenRequestData"""
+
     @classmethod
     def _capabilities(cls) -> set[Capability]:
         return {
@@ -40,9 +42,7 @@ class KrakenRequestData(Feed):
         """__init__ method"""
         super().__init__(data_queue, **kwargs)
         self.public_key = kwargs.get("public_key") or kwargs.get("api_key")
-        self.private_key = (
-            kwargs.get("private_key") or kwargs.get("secret_key") or kwargs.get("api_secret")
-        )
+        self.private_key = kwargs.get("private_key") or kwargs.get("secret_key") or kwargs.get("api_secret")
         self.asset_type = kwargs.get("asset_type", "SPOT")
         self.exchange_name = kwargs.get("exchange_name", "KRAKEN")
         self.logger_name = kwargs.get("logger_name", "kraken_feed.log")
@@ -114,9 +114,7 @@ class KrakenRequestData(Feed):
                 self.request_logger.info(f"{method} {url}")
                 if params:
                     url = f"{url}?{urlencode(params)}"
-                response_data = self.http_request(
-                    method=method, url=url, headers={}, timeout=timeout
-                )
+                response_data = self.http_request(method=method, url=url, headers={}, timeout=timeout)
         except Exception as e:
             self.request_logger.error(f"Request error: {e}")
 
@@ -153,9 +151,7 @@ class KrakenRequestData(Feed):
             else:
                 if params:
                     url = f"{url}?{urlencode(params)}"
-                response_data = await self.async_http_request(
-                    method=method, url=url, headers={}, timeout=timeout
-                )
+                response_data = await self.async_http_request(method=method, url=url, headers={}, timeout=timeout)
         except Exception as e:
             self.async_logger.error(f"Async request error: {e}")
 
