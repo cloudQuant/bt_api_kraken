@@ -1,3 +1,4 @@
+"""Module documentation"""
 from __future__ import annotations
 
 import time
@@ -8,9 +9,11 @@ from bt_api_base.logging_factory import get_logger
 
 
 class KrakenRequestTickerData(TickerData):
+    """Class KrakenRequestTickerData"""
     def __init__(
         self, data: dict[str, Any], symbol: str, asset_type: str, has_been_json_encoded=False
     ) -> None:
+        """__init__ method"""
         super().__init__(data, has_been_json_encoded)
         self.symbol = symbol
         self.asset_type = asset_type
@@ -114,6 +117,7 @@ class KrakenRequestTickerData(TickerData):
             raise
 
     def to_dict(self) -> dict[str, Any]:
+        """to_dict method"""
         return {
             "symbol": self.symbol,
             "exchange": self.exchange,
@@ -146,60 +150,73 @@ class KrakenRequestTickerData(TickerData):
         }
 
     def init_data(self) -> "KrakenRequestTickerData":
+        """init_data method"""
         return self
 
     def get_all_data(self) -> dict[str, Any]:
+        """get_all_data method"""
         return self.to_dict()
 
     def get_exchange_name(self) -> str:
+        """get_exchange_name method"""
         return str(self.exchange)
 
     def get_local_update_time(self) -> float:
+        """get_local_update_time method"""
         return float(self.timestamp)
 
     def get_symbol_name(self) -> str:
+        """get_symbol_name method"""
         return str(self.symbol)
 
     def get_ticker_symbol_name(self) -> str | None:
+        """get_ticker_symbol_name method"""
         return self.symbol
 
     def get_asset_type(self) -> str:
+        """get_asset_type method"""
         return self.asset_type
 
     def get_server_time(self) -> float | None:
+        """get_server_time method"""
         ts = self.timestamp
         if ts is None:
             return None
-        try:
-            return float(ts)
+        try: return float(ts)
         except (TypeError, ValueError):
             return None
 
     def get_bid_price(self) -> float | None:
+        """get_bid_price method"""
         return self.bid_price
 
     def get_ask_price(self) -> float | None:
+        """get_ask_price method"""
         return self.ask_price
 
     def get_bid_volume(self) -> float | None:
+        """get_bid_volume method"""
         return self.bid_quantity
 
     def get_ask_volume(self) -> float | None:
+        """get_ask_volume method"""
         return self.ask_quantity
 
     def get_last_price(self) -> float | None:
+        """get_last_price method"""
         return self.last_price
 
     def get_last_volume(self) -> float | None:
+        """get_last_volume method"""
         qty = self.last_quantity
         if qty is None:
             return None
-        try:
-            return float(qty)
+        try: return float(qty)
         except (TypeError, ValueError):
             return None
 
     def validate(self) -> bool:
+        """validate method"""
         if not self.symbol:
             return False
         if not self.last_price or self.last_price <= 0:
@@ -216,11 +233,13 @@ class KrakenRequestTickerData(TickerData):
         return True
 
     def get_mid_price(self) -> float | None:
+        """get_mid_price method"""
         if self.bid_price and self.ask_price:
             return (self.bid_price + self.ask_price) / 2
         return None
 
     def get_price_impact(self, volume: float) -> dict[str, float | None]:
+        """get_price_impact method"""
         if not self.bid_price or not self.ask_price or not self.volume_24h:
             return {"estimated_bid": None, "estimated_ask": None}
 

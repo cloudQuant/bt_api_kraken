@@ -1,3 +1,4 @@
+"""Module documentation"""
 from __future__ import annotations
 
 import base64
@@ -17,6 +18,7 @@ from bt_api_base.logging_factory import get_logger
 
 
 class KrakenRequestData(Feed):
+    """Class KrakenRequestData"""
     @classmethod
     def _capabilities(cls) -> set[Capability]:
         return {
@@ -35,6 +37,7 @@ class KrakenRequestData(Feed):
         }
 
     def __init__(self, data_queue: Any = None, **kwargs: Any) -> None:
+        """__init__ method"""
         super().__init__(data_queue, **kwargs)
         self.public_key = kwargs.get("public_key") or kwargs.get("api_key")
         self.private_key = (
@@ -72,6 +75,7 @@ class KrakenRequestData(Feed):
         }
 
     def request(self, path, params=None, body=None, extra_data=None, timeout=10):
+        """request method"""
         if params is None:
             params = {}
         if body is None:
@@ -121,6 +125,7 @@ class KrakenRequestData(Feed):
         return request_data
 
     async def async_request(self, path, params=None, body=None, extra_data=None, timeout=5):
+        """async_request method"""
         if params is None:
             params = {}
         if body is None:
@@ -175,6 +180,7 @@ class KrakenRequestData(Feed):
             return None
 
     def async_callback(self, future):
+        """async_callback method"""
         try:
             request_data = future.result()
             if request_data is not None:
@@ -184,6 +190,7 @@ class KrakenRequestData(Feed):
             self.async_logger.error(f"async_callback error: {e}")
 
     def push_data_to_queue(self, request_data):
+        """push_data_to_queue method"""
         if self.data_queue is not None:
             self.data_queue.put(request_data)
 

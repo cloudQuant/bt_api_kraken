@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 from typing import Any
@@ -13,7 +14,9 @@ from bt_api_base.logging_factory import get_logger
 
 
 class KrakenRequestDataSpot(KrakenRequestData):
+    """Class KrakenRequestDataSpot"""
     def __init__(self, data_queue: Any = None, **kwargs: Any) -> None:
+        """__init__ method"""
         kwargs.setdefault("asset_type", "SPOT")
         kwargs.setdefault("logger_name", "kraken_spot_feed.log")
         super().__init__(data_queue, **kwargs)
@@ -61,13 +64,16 @@ class KrakenRequestDataSpot(KrakenRequestData):
         return [], False
 
     def get_ticker(self, symbol, extra_data=None, **kwargs):
+        """get_ticker method"""
         path, params, extra_data = self._get_ticker(symbol, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def get_tick(self, symbol, extra_data=None, **kwargs):
+        """get_tick method"""
         return self.get_ticker(symbol, extra_data=extra_data, **kwargs)
 
     def async_get_ticker(self, symbol, extra_data=None, **kwargs):
+        """async_get_ticker method"""
         path, params, extra_data = self._get_ticker(symbol, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -75,6 +81,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         )
 
     def async_get_tick(self, symbol, extra_data=None, **kwargs):
+        """async_get_tick method"""
         self.async_get_ticker(symbol, extra_data=extra_data, **kwargs)
 
     def _get_depth(self, symbol, count=20, extra_data=None, **kwargs):
@@ -116,10 +123,12 @@ class KrakenRequestDataSpot(KrakenRequestData):
         return [], False
 
     def get_depth(self, symbol, count=20, extra_data=None, **kwargs):
+        """get_depth method"""
         path, params, extra_data = self._get_depth(symbol, count, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def async_get_depth(self, symbol, count=20, extra_data=None, **kwargs):
+        """async_get_depth method"""
         path, params, extra_data = self._get_depth(symbol, count, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -143,10 +152,12 @@ class KrakenRequestDataSpot(KrakenRequestData):
         return path, params, extra_data
 
     def get_kline(self, symbol, period="1m", count=100, extra_data=None, **kwargs):
+        """get_kline method"""
         path, params, extra_data = self._get_kline(symbol, period, count, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def async_get_kline(self, symbol, period="1m", count=100, extra_data=None, **kwargs):
+        """async_get_kline method"""
         path, params, extra_data = self._get_kline(symbol, period, count, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -167,10 +178,12 @@ class KrakenRequestDataSpot(KrakenRequestData):
         return path, {}, extra_data
 
     def get_server_time(self, extra_data=None, **kwargs):
+        """get_server_time method"""
         path, params, extra_data = self._get_server_time(extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def get_exchange_info(self, symbol=None, extra_data=None, **kwargs):
+        """get_exchange_info method"""
         request_type = "get_exchange_info"
         path = self._params.get_rest_path(request_type)
         params = {}
@@ -187,6 +200,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         return self.request(path, params=params, extra_data=extra_data)
 
     def get_symbols(self, extra_data=None, **kwargs):
+        """get_symbols method"""
         return self.get_exchange_info(extra_data=extra_data, **kwargs)
 
     def _get_balance(self, extra_data=None, **kwargs):
@@ -228,13 +242,16 @@ class KrakenRequestDataSpot(KrakenRequestData):
         return [], False
 
     def get_balance(self, extra_data=None, **kwargs):
+        """get_balance method"""
         path, params, extra_data = self._get_balance(extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def get_account(self, symbol=None, extra_data=None, **kwargs):
+        """get_account method"""
         return self.get_balance(extra_data=extra_data, **kwargs)
 
     def async_get_balance(self, extra_data=None, **kwargs):
+        """async_get_balance method"""
         path, params, extra_data = self._get_balance(extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -242,6 +259,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         )
 
     def async_get_account(self, symbol=None, extra_data=None, **kwargs):
+        """async_get_account method"""
         self.async_get_balance(extra_data=extra_data, **kwargs)
 
     def _make_order(
@@ -325,6 +343,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         extra_data=None,
         **kwargs,
     ):
+        """make_order method"""
         path, body, extra_data = self._make_order(
             symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
         )
@@ -340,6 +359,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         extra_data=None,
         **kwargs,
     ):
+        """async_make_order method"""
         path, body, extra_data = self._make_order(
             symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
         )
@@ -364,6 +384,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         return path, body, extra_data
 
     def cancel_order(self, symbol=None, order_id=None, extra_data=None, **kwargs):
+        """cancel_order method"""
         path, body, extra_data = self._cancel_order(order_id, extra_data, symbol=symbol, **kwargs)
         return self.request(path, params={}, body=body, extra_data=extra_data)
 
@@ -408,6 +429,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         return [], False
 
     def query_order(self, symbol=None, order_id=None, extra_data=None, **kwargs):
+        """query_order method"""
         path, body, extra_data = self._query_order(order_id, extra_data, symbol=symbol, **kwargs)
         return self.request(path, params={}, body=body, extra_data=extra_data)
 
@@ -451,6 +473,7 @@ class KrakenRequestDataSpot(KrakenRequestData):
         return [], False
 
     def get_open_orders(self, symbol=None, extra_data=None, **kwargs):
+        """get_open_orders method"""
         path, body, extra_data = self._get_open_orders(extra_data, symbol=symbol, **kwargs)
         return self.request(path, params={}, body=body, extra_data=extra_data)
 
@@ -469,13 +492,16 @@ class KrakenRequestDataSpot(KrakenRequestData):
         return path, body, extra_data
 
     def get_deals(self, symbol=None, limit=100, extra_data=None, **kwargs):
+        """get_deals method"""
         path, body, extra_data = self._get_deals(symbol, limit, extra_data, **kwargs)
         return self.request(path, params={}, body=body, extra_data=extra_data)
 
 
 class KrakenMarketWssDataSpot:
+    """Class KrakenMarketWssDataSpot"""
     pass
 
 
 class KrakenAccountWssDataSpot:
+    """Class KrakenAccountWssDataSpot"""
     pass

@@ -1,9 +1,11 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 from bt_api_base.error import ErrorCategory, ErrorTranslator, UnifiedError, UnifiedErrorCode
 
 
 class KrakenErrorTranslator(ErrorTranslator):
+    """Class KrakenErrorTranslator"""
     ERROR_MAP = {
         "EAPI:Invalid key": (UnifiedErrorCode.INVALID_API_KEY, "Invalid API key"),
         "EAPI:Invalid signature": (UnifiedErrorCode.INVALID_SIGNATURE, "Invalid signature"),
@@ -46,6 +48,7 @@ class KrakenErrorTranslator(ErrorTranslator):
 
     @classmethod
     def translate(cls, raw_error: dict, venue: str) -> UnifiedError | None:
+        """translate method"""
         errors = raw_error.get("error", [])
         if not errors:
             return None

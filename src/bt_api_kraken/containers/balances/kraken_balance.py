@@ -1,3 +1,4 @@
+"""Module documentation"""
 from __future__ import annotations
 
 import time
@@ -158,7 +159,9 @@ _DEFAULT_CURRENCY_INFO = {
 
 
 class KrakenRequestBalanceData(BalanceData):
+    """Class KrakenRequestBalanceData"""
     def __init__(self, data: dict[str, Any], asset_type: str, has_been_json_encoded=False):
+        """__init__ method"""
         super().__init__(data, has_been_json_encoded)
         self.asset_type = asset_type
         self.logger = get_logger("kraken_balance")
@@ -253,6 +256,7 @@ class KrakenRequestBalanceData(BalanceData):
         return grouped
 
     def to_dict(self) -> dict[str, Any]:
+        """to_dict method"""
         return {
             "timestamp": self.timestamp,
             "datetime": self.datetime,
@@ -265,6 +269,7 @@ class KrakenRequestBalanceData(BalanceData):
         }
 
     def validate(self) -> bool:
+        """validate method"""
         if not self.balances:
             return False
         for info in self.balances.values():
@@ -273,11 +278,13 @@ class KrakenRequestBalanceData(BalanceData):
         return not self.total_value_usd < 0
 
     def get_currency_balance(self, currency: str) -> float | None:
+        """get_currency_balance method"""
         if currency in self.balances:
             return self.balances[currency]["total"]
         return None
 
     def get_fiat_balance(self, currency: str = "USD") -> float:
+        """get_fiat_balance method"""
         total = 0.0
         for info in self.balances.values():
             if info["is_fiat"]:
@@ -293,9 +300,11 @@ class KrakenRequestBalanceData(BalanceData):
         return total
 
     def get_crypto_balance(self) -> float:
+        """get_crypto_balance method"""
         return self.total_crypto_balance
 
     def get_stakable_balance(self) -> dict[str, float]:
+        """get_stakable_balance method"""
         stakable = {}
         for currency, info in self.balances.items():
             if info["is_stakable"] and info["total"] > 0:
@@ -303,6 +312,7 @@ class KrakenRequestBalanceData(BalanceData):
         return stakable
 
     def get_biggest_holding(self) -> tuple | None:
+        """get_biggest_holding method"""
         if not self.balances:
             return None
         biggest = None
@@ -314,6 +324,7 @@ class KrakenRequestBalanceData(BalanceData):
         return biggest
 
     def update_balance(self, currency: str, delta: float):
+        """update_balance method"""
         if currency in self.balances:
             old_balance = self.balances[currency]["total"]
             new_balance = old_balance + delta
@@ -347,7 +358,9 @@ class KrakenRequestBalanceData(BalanceData):
 
 
 class KrakenSpotWssBalanceData(BalanceData):
+    """Class KrakenSpotWssBalanceData"""
     def __init__(self, data: dict[str, Any], asset_type: str, has_been_json_encoded=False):
+        """__init__ method"""
         super().__init__(data, has_been_json_encoded)
         self.asset_type = asset_type
         self.logger = get_logger("kraken_wss_balance")
@@ -389,6 +402,7 @@ class KrakenSpotWssBalanceData(BalanceData):
         self.exchange = "kraken"
 
     def to_dict(self) -> dict[str, Any]:
+        """to_dict method"""
         return {
             "currency": self.currency,
             "free": self.free,

@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 from typing import Any
@@ -9,7 +10,9 @@ from bt_api_base.logging_factory import get_logger
 
 
 class KrakenRequestDataFutures(KrakenRequestData):
+    """Class KrakenRequestDataFutures"""
     def __init__(self, data_queue: Any = None, **kwargs: Any) -> None:
+        """__init__ method"""
         kwargs.setdefault("asset_type", "FUTURES")
         kwargs.setdefault("logger_name", "kraken_futures_feed.log")
         super().__init__(data_queue, **kwargs)
@@ -34,13 +37,16 @@ class KrakenRequestDataFutures(KrakenRequestData):
         return path, params, extra_data
 
     def get_ticker(self, symbol, extra_data=None, **kwargs):
+        """get_ticker method"""
         path, params, extra_data = self._get_ticker(symbol, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def get_tick(self, symbol, extra_data=None, **kwargs):
+        """get_tick method"""
         return self.get_ticker(symbol, extra_data=extra_data, **kwargs)
 
     def async_get_ticker(self, symbol, extra_data=None, **kwargs):
+        """async_get_ticker method"""
         path, params, extra_data = self._get_ticker(symbol, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -63,10 +69,12 @@ class KrakenRequestDataFutures(KrakenRequestData):
         return path, params, extra_data
 
     def get_depth(self, symbol, count=20, extra_data=None, **kwargs):
+        """get_depth method"""
         path, params, extra_data = self._get_depth(symbol, count, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def async_get_depth(self, symbol, count=20, extra_data=None, **kwargs):
+        """async_get_depth method"""
         path, params, extra_data = self._get_depth(symbol, count, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -87,10 +95,12 @@ class KrakenRequestDataFutures(KrakenRequestData):
         return path, {}, extra_data
 
     def get_server_time(self, extra_data=None, **kwargs):
+        """get_server_time method"""
         path, params, extra_data = self._get_server_time(extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def get_exchange_info(self, symbol=None, extra_data=None, **kwargs):
+        """get_exchange_info method"""
         request_type = "get_exchange_info"
         path = self._params.get_rest_path(request_type)
         params = {}
@@ -119,10 +129,12 @@ class KrakenRequestDataFutures(KrakenRequestData):
         return path, body, extra_data
 
     def get_balance(self, extra_data=None, **kwargs):
+        """get_balance method"""
         path, body, extra_data = self._get_balance(extra_data, **kwargs)
         return self.request(path, params={}, body=body, extra_data=extra_data)
 
     def get_account(self, symbol=None, extra_data=None, **kwargs):
+        """get_account method"""
         return self.get_balance(extra_data=extra_data, **kwargs)
 
     def _make_order(
@@ -174,6 +186,7 @@ class KrakenRequestDataFutures(KrakenRequestData):
         extra_data=None,
         **kwargs,
     ):
+        """make_order method"""
         path, body, extra_data = self._make_order(
             symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
         )
@@ -195,13 +208,16 @@ class KrakenRequestDataFutures(KrakenRequestData):
         return path, body, extra_data
 
     def cancel_order(self, symbol=None, order_id=None, extra_data=None, **kwargs):
+        """cancel_order method"""
         path, body, extra_data = self._cancel_order(order_id, extra_data, symbol=symbol, **kwargs)
         return self.request(path, params={}, body=body, extra_data=extra_data)
 
 
 class KrakenMarketWssDataFutures:
+    """Class KrakenMarketWssDataFutures"""
     pass
 
 
 class KrakenAccountWssDataFutures:
+    """Class KrakenAccountWssDataFutures"""
     pass

@@ -1,6 +1,8 @@
+"""Module-level docstring."""
 import base64
 from bt_api_kraken.feeds.live_kraken.request_base import KrakenRequestData
 def test_kraken_accepts_api_key_and_api_secret_aliases() -> None:
+    """test_kraken_accepts_api_key_and_api_secret_aliases function"""
     private_key = base64.b64encode(b"secret-key").decode("utf-8")
     request_data = KrakenRequestData(api_key="public-key", api_secret=private_key)
     headers = request_data._sign_request("/0/private/Balance", {})

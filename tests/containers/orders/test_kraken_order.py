@@ -49,6 +49,7 @@ class TestKrakenRequestOrderData:
         assert "Kraken" in result
 
     def test_normalized_data_helpers_and_lifecycle(self):
+        """test_normalized_data_helpers_and_lifecycle method"""
         order = KrakenRequestOrderData(
             {
                 "id": "OID-1",
@@ -95,6 +96,7 @@ class TestKrakenRequestOrderData:
         assert order.remaining_quantity == 0
 
     def test_wss_order_to_dict(self):
+        """test_wss_order_to_dict method"""
         order = KrakenSpotWssOrderData(
             {
                 "orderId": "OID-2",

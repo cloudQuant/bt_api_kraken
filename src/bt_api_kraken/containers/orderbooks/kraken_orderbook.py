@@ -1,3 +1,4 @@
+"""Module documentation"""
 from __future__ import annotations
 
 import time
@@ -8,9 +9,11 @@ from bt_api_base.logging_factory import get_logger
 
 
 class KrakenRequestOrderBookData(OrderBookData):
+    """Class KrakenRequestOrderBookData"""
     def __init__(
         self, data: dict[str, Any], symbol: str, asset_type: str, has_been_json_encoded=False
     ):
+        """__init__ method"""
         super().__init__(data, has_been_json_encoded)
         self.symbol = symbol
         self.asset_type = asset_type
@@ -18,39 +21,51 @@ class KrakenRequestOrderBookData(OrderBookData):
         self._parse_data(data)
 
     def init_data(self):
+        """init_data method"""
         return self
 
     def get_exchange_name(self):
+        """get_exchange_name method"""
         return self.exchange
 
     def get_local_update_time(self):
+        """get_local_update_time method"""
         return self.timestamp
 
     def get_symbol_name(self):
+        """get_symbol_name method"""
         return self.symbol
 
     def get_asset_type(self):
+        """get_asset_type method"""
         return self.asset_type
 
     def get_server_time(self):
+        """get_server_time method"""
         return self.timestamp
 
     def get_bid_price_list(self):
+        """get_bid_price_list method"""
         return [bid["price"] for bid in self.bids]
 
     def get_ask_price_list(self):
+        """get_ask_price_list method"""
         return [ask["price"] for ask in self.asks]
 
     def get_bid_volume_list(self):
+        """get_bid_volume_list method"""
         return [bid["quantity"] for bid in self.bids]
 
     def get_ask_volume_list(self):
+        """get_ask_volume_list method"""
         return [ask["quantity"] for ask in self.asks]
 
     def get_bid_trade_nums(self):
+        """get_bid_trade_nums method"""
         return
 
     def get_ask_trade_nums(self):
+        """get_ask_trade_nums method"""
         return
 
     def _parse_data(self, data: dict[str, Any]):
@@ -94,10 +109,12 @@ class KrakenRequestOrderBookData(OrderBookData):
 
     @property
     def symbol_name(self):
+        """symbol_name method"""
         return self.symbol
 
     @symbol_name.setter
     def symbol_name(self, value):
+        """symbol_name method"""
         pass
 
     def _calculate_stats(self):
@@ -124,6 +141,7 @@ class KrakenRequestOrderBookData(OrderBookData):
         self.ask_weighted_depth = sum(level["price"] * level["quantity"] for level in self.asks)
 
     def get_levels(self, depth: int = 10, side: str = "both") -> dict[str, list[dict]]:
+        """get_levels method"""
         levels = {}
         if side in ["bid", "both"]:
             levels["bids"] = self.bids[:depth]
@@ -132,6 +150,7 @@ class KrakenRequestOrderBookData(OrderBookData):
         return levels
 
     def get_total_depth(self, side: str, price_range: tuple[float, float] | None = None) -> float:
+        """get_total_depth method"""
         levels = self.bids if side == "bid" else self.asks
         total = 0.0
         for level in levels:
@@ -143,6 +162,7 @@ class KrakenRequestOrderBookData(OrderBookData):
         return total
 
     def get_price_impact(self, side: str, volume: float) -> dict[str, Any]:
+        """get_price_impact method"""
         levels = self.bids if side == "buy" else self.asks
         cumulative_volume = 0.0
         estimated_price = None
@@ -166,6 +186,7 @@ class KrakenRequestOrderBookData(OrderBookData):
         }
 
     def to_dict(self) -> dict[str, Any]:
+        """to_dict method"""
         return {
             "symbol": self.symbol,
             "exchange": self.exchange,
@@ -188,6 +209,7 @@ class KrakenRequestOrderBookData(OrderBookData):
         }
 
     def validate(self) -> bool:
+        """validate method"""
         if not self.symbol:
             return False
         if self.bids and self.asks and self.bids[0]["price"] > self.asks[0]["price"]:
@@ -197,6 +219,7 @@ class KrakenRequestOrderBookData(OrderBookData):
     def update_from_delta(
         self, delta_bids: list[dict], delta_asks: list[dict], timestamp: float | None = None
     ):
+        """update_from_delta method"""
         if timestamp is None:
             timestamp = time.time()
 
@@ -239,6 +262,7 @@ class KrakenRequestOrderBookData(OrderBookData):
     def get_liquidation_price(
         self, side: str, position_size: float, leverage: float = 1.0
     ) -> float | None:
+        """get_liquidation_price method"""
         if side == "long":
             if not self.bids:
                 return None
@@ -251,6 +275,7 @@ class KrakenRequestOrderBookData(OrderBookData):
             return float(price) * (1 + 0.01 * leverage)
 
     def get_vwap(self, side: str, volume: float) -> float | None:
+        """get_vwap method"""
         levels = self.bids if side == "buy" else self.asks
         cumulative_volume = 0.0
         cumulative_value = 0.0

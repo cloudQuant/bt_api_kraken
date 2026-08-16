@@ -1,3 +1,4 @@
+"""Module documentation"""
 from __future__ import annotations
 
 import time
@@ -8,6 +9,7 @@ from bt_api_base.logging_factory import get_logger
 
 
 class KrakenRequestOrderData(OrderData):
+    """Class KrakenRequestOrderData"""
     def __init__(
         self,
         data: dict[str, Any],
@@ -16,6 +18,7 @@ class KrakenRequestOrderData(OrderData):
         is_response_data: bool = False,
         has_been_json_encoded=False,
     ):
+        """__init__ method"""
         super().__init__(data, has_been_json_encoded)
         self.symbol = symbol
         self.asset_type = asset_type
@@ -123,111 +126,147 @@ class KrakenRequestOrderData(OrderData):
         self.expire_time = data.get("expire_time")
 
     def init_data(self):
+        """init_data method"""
         return self
 
     def get_exchange_name(self):
+        """get_exchange_name method"""
         return self.exchange
 
     def get_local_update_time(self):
+        """get_local_update_time method"""
         return self.timestamp
 
     def get_asset_type(self):
+        """get_asset_type method"""
         return self.asset_type
 
     def get_symbol_name(self):
+        """get_symbol_name method"""
         return self.symbol
 
     def get_server_time(self):
+        """get_server_time method"""
         return self.timestamp
 
     def get_trade_id(self):
+        """get_trade_id method"""
         return
 
     def get_client_order_id(self):
+        """get_client_order_id method"""
         return self.userref
 
     def get_cum_quote(self):
+        """get_cum_quote method"""
         return self.cost
 
     def get_executed_qty(self):
+        """get_executed_qty method"""
         return self.executed_quantity
 
     def get_order_id(self):
+        """get_order_id method"""
         return self.order_id
 
     def get_order_size(self):
+        """get_order_size method"""
         return self.quantity
 
     def get_order_price(self):
+        """get_order_price method"""
         return self.price
 
     def get_reduce_only(self):
+        """get_reduce_only method"""
         return
 
     def get_order_side(self):
+        """get_order_side method"""
         return self.side
 
     def get_order_status(self):
+        """get_order_status method"""
         return self.status
 
     def get_order_symbol_name(self):
+        """get_order_symbol_name method"""
         return self.symbol
 
     def get_order_time_in_force(self):
+        """get_order_time_in_force method"""
         return
 
     def get_order_type(self):
+        """get_order_type method"""
         return self.type
 
     def get_order_avg_price(self):
+        """get_order_avg_price method"""
         return self.average_price
 
     def get_origin_order_type(self):
+        """get_origin_order_type method"""
         return self.type
 
     def get_position_side(self):
+        """get_position_side method"""
         return
 
     def get_trailing_stop_price(self):
+        """get_trailing_stop_price method"""
         return
 
     def get_trailing_stop_trigger_price(self):
+        """get_trailing_stop_trigger_price method"""
         return
 
     def get_trailing_stop_callback_rate(self):
+        """get_trailing_stop_callback_rate method"""
         return
 
     def get_trailing_stop_trigger_price_type(self):
+        """get_trailing_stop_trigger_price_type method"""
         return
 
     def get_stop_loss_price(self):
+        """get_stop_loss_price method"""
         return
 
     def get_stop_loss_trigger_price(self):
+        """get_stop_loss_trigger_price method"""
         return
 
     def get_stop_loss_trigger_price_type(self):
+        """get_stop_loss_trigger_price_type method"""
         return
 
     def get_take_profit_price(self):
+        """get_take_profit_price method"""
         return
 
     def get_take_profit_trigger_price(self):
+        """get_take_profit_trigger_price method"""
         return
 
     def get_take_profit_trigger_price_type(self):
+        """get_take_profit_trigger_price_type method"""
         return
 
     def get_close_position(self):
+        """get_close_position method"""
         return
 
     def get_order_offset(self):
+        """get_order_offset method"""
         return
 
     def get_order_exchange_id(self):
+        """get_order_exchange_id method"""
         return "kraken"
 
     def to_dict(self) -> dict[str, Any]:
+        """to_dict method"""
         return {
             "order_id": self.order_id,
             "symbol": self.symbol,
@@ -255,6 +294,7 @@ class KrakenRequestOrderData(OrderData):
         }
 
     def validate(self) -> bool:
+        """validate method"""
         if not self.order_id:
             return False
         if self.status not in ["new", "open", "closed", "canceled", "expired", "unknown"]:
@@ -279,17 +319,21 @@ class KrakenRequestOrderData(OrderData):
         return 0 <= self.executed_quantity <= self.quantity
 
     def is_open(self) -> bool:
+        """is_open method"""
         return self.status in ["open", "new"]
 
     def is_filled(self) -> bool:
+        """is_filled method"""
         return self.status == "closed" and self.executed_quantity == self.quantity
 
     def get_fill_percentage(self) -> float:
+        """get_fill_percentage method"""
         if self.quantity is None or self.quantity == 0:
             return 0.0
         return (self.executed_quantity / self.quantity) * 100
 
     def update_from_trade(self, trade_data: dict[str, Any]):
+        """update_from_trade method"""
         if "executed_quantity" in trade_data:
             self.executed_quantity = float(trade_data["executed_quantity"])
         if "cost" in trade_data:
@@ -302,6 +346,7 @@ class KrakenRequestOrderData(OrderData):
             self.status = "closed"
 
     def cancel(self):
+        """cancel method"""
         self.status = "canceled"
         self.remaining_quantity = 0
 
@@ -321,9 +366,11 @@ class KrakenRequestOrderData(OrderData):
 
 
 class KrakenSpotWssOrderData(OrderData):
+    """Class KrakenSpotWssOrderData"""
     def __init__(
         self, data: dict[str, Any], symbol: str, asset_type: str, has_been_json_encoded=False
     ):
+        """__init__ method"""
         super().__init__(data, has_been_json_encoded)
         self.symbol = symbol
         self.asset_type = asset_type
@@ -349,6 +396,7 @@ class KrakenSpotWssOrderData(OrderData):
         self.exchange = "kraken"
 
     def to_dict(self) -> dict[str, Any]:
+        """to_dict method"""
         return {
             "order_id": self.order_id,
             "symbol": self.symbol,

@@ -86,6 +86,7 @@ class TestKrakenRequestBalanceData:
         assert balance.get_currency_balance("ETH") is None
 
     def test_validate_and_summary_helpers(self):
+        """test_validate_and_summary_helpers method"""
         data = {"result": {"XXBT": "1.5", "ZUSD": "1000.0", "ETH": "2.0"}}
         balance = KrakenRequestBalanceData(data, asset_type="SPOT", has_been_json_encoded=True)
         balance._initialized = True
@@ -99,6 +100,7 @@ class TestKrakenRequestBalanceData:
         assert biggest[0] in {"XXBT", "ZUSD", "ETH"}
 
     def test_update_balance_updates_totals(self):
+        """test_update_balance_updates_totals method"""
         data = {"result": {"XXBT": "1.0"}}
         balance = KrakenRequestBalanceData(data, asset_type="SPOT", has_been_json_encoded=True)
         balance._initialized = True
@@ -110,6 +112,7 @@ class TestKrakenRequestBalanceData:
         assert balance.total_value_usd > original_total
 
     def test_update_balance_rejects_negative_result(self):
+        """test_update_balance_rejects_negative_result method"""
         data = {"result": {"XXBT": "1.0"}}
         balance = KrakenRequestBalanceData(data, asset_type="SPOT", has_been_json_encoded=True)
         balance._initialized = True
@@ -119,12 +122,15 @@ class TestKrakenRequestBalanceData:
         assert balance.get_currency_balance("XXBT") == 1.0
 
     def test_invalid_payload_raises_value_error(self):
+        """test_invalid_payload_raises_value_error method"""
         with pytest.raises(ValueError):
             KrakenRequestBalanceData({"result": {}}, asset_type="SPOT", has_been_json_encoded=True)
 
 
 class TestKrakenSpotWssBalanceData:
+    """Class TestKrakenSpotWssBalanceData"""
     def test_structured_wss_payload(self):
+        """test_structured_wss_payload method"""
         balance = KrakenSpotWssBalanceData(
             {"currency": "XXBT", "free": "0.5", "used": "0.2", "time": 123456.0},
             asset_type="SPOT",
@@ -137,6 +143,7 @@ class TestKrakenSpotWssBalanceData:
         assert data["exchange"] == "kraken"
 
     def test_dict_payload_uses_first_non_zero_currency(self):
+        """test_dict_payload_uses_first_non_zero_currency method"""
         balance = KrakenSpotWssBalanceData(
             {"ZUSD": "0", "XXBT": "0.5", "ETH": "1.0"},
             asset_type="SPOT",
@@ -148,5 +155,6 @@ class TestKrakenSpotWssBalanceData:
         assert data["free"] == 0.5
 
     def test_non_dict_payload_falls_back_to_unknown(self):
+        """test_non_dict_payload_falls_back_to_unknown method"""
         balance = KrakenSpotWssBalanceData([], asset_type="SPOT", has_been_json_encoded=True)
         assert balance.to_dict()["currency"] == "UNKNOWN"

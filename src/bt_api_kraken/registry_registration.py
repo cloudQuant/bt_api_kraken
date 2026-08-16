@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 from typing import Any
@@ -21,6 +22,7 @@ def _kraken_subscribe_handler(
 
 
 def register_kraken(registry: type[ExchangeRegistry]) -> None:
+    """register_kraken function"""
     registry.register_feed("KRAKEN___SPOT", KrakenRequestDataSpot)
     registry.register_exchange_data("KRAKEN___SPOT", KrakenExchangeDataSpot)
     registry.register_balance_handler("KRAKEN___SPOT", _kraken_balance_handler)

@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 from typing import Any
@@ -9,7 +10,9 @@ logger = get_logger("kraken_exchange_data")
 
 
 class KrakenExchangeData(ExchangeData):
+    """Class KrakenExchangeData"""
     def __init__(self) -> None:
+        """__init__ method"""
         super().__init__()
         self.exchange_name = "kraken"
         self.rest_url = "https://api.kraken.com"
@@ -37,25 +40,32 @@ class KrakenExchangeData(ExchangeData):
         self.legal_currency = ["USD", "EUR", "USDT", "BTC", "ETH"]
 
     def get_symbol(self, symbol: str) -> str:
+        """get_symbol method"""
         result = symbol.replace("/", "").replace("-", "").upper()
         result = result.replace("BTC", "XBT")
         return result
 
     def get_period(self, period: str) -> str:
+        """get_period method"""
         return self.kline_periods.get(period, period)
 
     def get_rest_path(self, request_type: str, **kwargs) -> str:
+        """get_rest_path method"""
         return self.rest_paths.get(request_type, "")
 
     def get_wss_path(self, channel: Any, **kwargs) -> str:
+        """get_wss_path method"""
         return self.wss_paths.get(channel, "")
 
     def account_wss_symbol(self, symbol: str) -> str:
+        """account_wss_symbol method"""
         return self.get_symbol(symbol)
 
 
 class KrakenExchangeDataSpot(KrakenExchangeData):
+    """Class KrakenExchangeDataSpot"""
     def __init__(self) -> None:
+        """__init__ method"""
         super().__init__()
         self.exchange_name = "kraken"
         self.asset_type = "SPOT"
@@ -84,7 +94,9 @@ class KrakenExchangeDataSpot(KrakenExchangeData):
 
 
 class KrakenExchangeDataFutures(KrakenExchangeData):
+    """Class KrakenExchangeDataFutures"""
     def __init__(self) -> None:
+        """__init__ method"""
         super().__init__()
         self.exchange_name = "krakenFutures"
         self.asset_type = "FUTURES"
