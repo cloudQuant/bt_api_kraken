@@ -115,7 +115,6 @@ class KrakenRequestOrderBookData(OrderBookData):
     @symbol_name.setter
     def symbol_name(self, value):
         """symbol_name method"""
-        pass
 
     def _calculate_stats(self):
         self.best_bid = self.bids[0]["price"] if self.bids else None

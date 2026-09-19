@@ -217,10 +217,8 @@ class KrakenRequestDataFutures(KrakenRequestData):
 class KrakenMarketWssDataFutures:
     """Class KrakenMarketWssDataFutures"""
 
-    pass
 
 
 class KrakenAccountWssDataFutures:
     """Class KrakenAccountWssDataFutures"""
 
-    pass

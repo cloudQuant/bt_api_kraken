@@ -491,10 +491,8 @@ class KrakenRequestDataSpot(KrakenRequestData):
 class KrakenMarketWssDataSpot:
     """Class KrakenMarketWssDataSpot"""
 
-    pass
 
 
 class KrakenAccountWssDataSpot:
     """Class KrakenAccountWssDataSpot"""
 
-    pass
