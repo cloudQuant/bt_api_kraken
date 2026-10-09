@@ -1,4 +1,4 @@
-# KRAKEN Documentation
+﻿# KRAKEN Documentation
 
 ## English
 

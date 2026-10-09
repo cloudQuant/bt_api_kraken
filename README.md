@@ -1,4 +1,4 @@
-# KRAKEN
+﻿# KRAKEN
 
 Exchange plugin for bt_api framework.
 
